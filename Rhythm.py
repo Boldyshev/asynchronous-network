@@ -92,7 +92,6 @@ def search_ensembles(names, neurons, time):
     neurons = [n for n in neurons if n.name in names]
 
     for n in neurons:
-        print(n.name)
         n.get_rhythm(time)
         for r in n.rhythm:
             neurons_l = [n.name]
