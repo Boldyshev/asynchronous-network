@@ -1,0 +1,12 @@
+Neurons;2
+Transmitters;2
+ECS;1
+Tacts;54
+Neurons' number;Name;U_max;U_min;Threshold;U_rest;Rebound_th;Rebound rate;Speed_01;Speed_01;Speed_11;Speed_00;U;w;d
+0;N1;0.7;0.55;0.6;0.55;0.0;5.0;0.7;-0.3;2.5;-2.5;0.55;[[0, 0]];[[0.5, 0]]
+1;N2;0.7;0.55;0.601;0.55;0.0;5.0;0.7;-0.3;2.5;-2.5;0.55;[[0, 0]];[[0, 0.5]]
+Transmitter number;Transmitter name;Lifetime
+0;c1;0.0
+1;c2;0.0
+ECS number;Transmitter name;External transmitter
+0;ÂÊÏ 1;[[0, [0, 1]], [0, [0, 10]]]
