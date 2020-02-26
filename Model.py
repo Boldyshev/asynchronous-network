@@ -182,9 +182,9 @@ def load_data(f_name):
     return l_neurons, l_transmitters, l_ecs, iters, n_number, t_number, e_number
 
 
-def calculate(c_neurons, c_transmitters, c_ecs):
+def calculate(c_neurons, c_transmitters, c_ecs, c_iters):
     c_time = [0, 0]
-    for i in range(iterations):
+    for i in range(c_iters):
         residual_times = []
 
         for neuron in c_neurons:
@@ -266,12 +266,12 @@ def show_plot(p_params, t_time):
             ax.xaxis.set_label_coords(-0.03, 1.3)
     plt.show()
 
-file_name = 'Aplysia reverse'
-params = load_data(file_name)
-neurons, transmitters, ecs, iterations, neuron_number, transmitter_number, ECS_number = params
-neurons, ecs, time = calculate(neurons, transmitters, ecs)
-
-names = [n.name for n in neurons]
-print(search_ensembles(names, neurons, time))
-save_data(params, file_name)
-show_plot(params, time)
+if __name__ == "__main__":
+    file_name = 'Aplysia reverse'
+    params = load_data(file_name)
+    neurons, transmitters, ecs, iterations, neuron_number, transmitter_number, ECS_number = params
+    neurons, ecs, time = calculate(neurons, transmitters, ecs, iterations)
+    names = [n.name for n in neurons]
+    print(search_ensembles(names, neurons, time))
+    save_data(params, file_name)
+    show_plot(params, time)
