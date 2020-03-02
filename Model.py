@@ -182,9 +182,17 @@ def load_data(f_name):
     return l_neurons, l_transmitters, l_ecs, iters, n_number, t_number, e_number
 
 
-def calculate(c_neurons, c_transmitters, c_ecs):
+def calculate(c_neurons, c_transmitters, c_ecs, num_iters):
+    """Simulate the neural dynamics
+
+    Compute the parameters at each timestep for the given neurons
+        c_neurons - list of the neurons
+        c_transmitters - list of the transmitters
+        c_ecs - list of the ECS
+        num_iters - number of timesteps to compute
+    """
     c_time = [0, 0]
-    for i in range(iterations):
+    for i in range(num_iters):
         residual_times = []
 
         for neuron in c_neurons:
@@ -213,6 +221,7 @@ def calculate(c_neurons, c_transmitters, c_ecs):
 def show_plot(p_params, t_time):
     col_num = 0
     p_neurons = p_params[0]
+    neuron_number = p_params[4]
     plt.figure(figsize=(4 * len(p_neurons), len(p_neurons)))
     colors = ['r', 'b', 'g', 'c', 'm', 'y', 'k'] * neuron_number
     for pic, dat in enumerate(p_neurons):
@@ -248,9 +257,15 @@ def show_plot(p_params, t_time):
         ax.spines['top'].set_color('none')
         ax.spines['bottom'].set_color('none')
         ax.get_xticks()
-        ax.set_xticks([])
+        #ax.set_xticks([])
+        
+        if pic != len(p_neurons)-1:
+            ax.set_xticks([])
+            ax.set_xticklabels([])
+        else:
+            ax.set_xticks([i for i in range(0, int(round(t_time[-1])))])
+        
         ax.set_yticks([p_neurons[pic].threshold])
-        ax.set_xticklabels([])
         ax.set_yticks([p_neurons[pic].min_potential - 0.01, p_neurons[pic].max_potential + 0.01])
         ax.set_yticks([p_neurons[pic].threshold], minor=True)
         ax.tick_params(axis='y', which='minor', labelsize=14, labelbottom=1)
@@ -266,12 +281,12 @@ def show_plot(p_params, t_time):
             ax.xaxis.set_label_coords(-0.03, 1.3)
     plt.show()
 
-file_name = 'Aplysia reverse'
-params = load_data(file_name)
-neurons, transmitters, ecs, iterations, neuron_number, transmitter_number, ECS_number = params
-neurons, ecs, time = calculate(neurons, transmitters, ecs)
-
-names = [n.name for n in neurons]
-print(search_ensembles(names, neurons, time))
-save_data(params, file_name)
-show_plot(params, time)
+if __name__ == "__main__":
+    file_name = 'Aplysia reverse'
+    params = load_data(file_name)
+    neurons, transmitters, ecs, iterations, neuron_number, transmitter_number, ECS_number = params
+    neurons, ecs, time = calculate(neurons, transmitters, ecs, iterations)
+    names = [n.name for n in neurons]
+    print(search_ensembles(names, neurons, time))
+    save_data(params, file_name)
+    show_plot(params, time)
